@@ -1,0 +1,177 @@
+<workflow-app name="shell-wf" xmlns="uri:oozie:workflow:0.5">
+    <start to="forking"/>
+        <fork name="forking">
+                <path start="vauto-add-new-partition-recent"/>
+                <path start="vauto-add-new-partition-sold"/>
+        </fork>
+	<action name="vauto-add-new-partition-recent">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>vauto</argument>
+			<argument>-t</argument>
+			<argument>vauto_recent_market_data</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/vauto/vauto_recent_market_data/</argument>
+			<argument>-n</argument>
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="vauto-hql-dedupe-recent"/>
+		<error to="joining"/>
+	</action>
+	<action name="vauto-hql-dedupe-recent">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/vauto/dedupe_incremental_recent_market.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="vauto-add-partition-recent"/>
+		<error to="joining"/>
+	</action>
+	<action name="vauto-add-partition-recent">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>vauto</argument>
+			<argument>-t</argument>
+			<argument>vauto_recent_market_data</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/vauto/vauto_recent_market_data/</argument>
+			<argument>-p</argument>
+                        <argument>${wf:actionData('vauto-add-new-partition-recent')['new_partitions']}</argument> 
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="joining"/>
+		<error to="joining"/>
+	</action>
+	<action name="vauto-add-new-partition-sold">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>vauto</argument>
+			<argument>-t</argument>
+			<argument>vauto_sold_market_vehicle</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/vauto/vauto_sold_market_vehicle/</argument>
+			<argument>-n</argument>
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="vauto-hql-dedupe-sold"/>
+		<error to="joining"/>
+	</action>
+	<action name="vauto-hql-dedupe-sold">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/vauto/dedupe_incremental_sold_vehicle.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="vauto-add-partition-sold"/>
+		<error to="joining"/>
+	</action>
+	<action name="vauto-add-partition-sold">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>vauto</argument>
+			<argument>-t</argument>
+			<argument>vauto_sold_market_vehicle</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/vauto/vauto_sold_market_vehicle/</argument>
+			<argument>-p</argument>
+                        <argument>${wf:actionData('vauto-add-new-partition-sold')['new_partitions']}</argument> 
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="joining"/>
+		<error to="joining"/>
+	</action>
+	<join name="joining" to="endMain"/>
+	<action name="failEmail">
+		<email xmlns="uri:oozie:email-action:0.1">
+			<to>${alertEmail}</to>
+			<subject>oozie job failure</subject>
+			<body>The workflow ${wf:id()} name ${wf:name()} path ${wf:appPath()} had issues and was killed.  The error message is: ${wf:errorMessage(wf:lastErrorNode())}</body>
+		</email>
+		<ok to="fail" />
+		<error to="fail"/>
+	</action>
+	<kill name="fail">
+		<message>Sqoop failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+	<end name="endMain"/>
+</workflow-app>

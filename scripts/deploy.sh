@@ -7,7 +7,7 @@ sudo mkdir -p /home/oozie/insights-dataflow/oozie/
 sudo cp -r oozie/configs /home/oozie/insights-dataflow/oozie/
 sudo chown -R oozie /home/oozie/insights-dataflow/oozie
 hadoop fs -copyFromLocal -f oozie/sharelib/*  /user/oozie/share/lib/$libpath/ 
-hadoop fs -copyFromLocal -f scripts/add_partitions.sh  /user/oozie/share/scripts/
+hadoop fs -copyFromLocal -f scripts/*  /user/oozie/share/scripts/
 hadoop fs -copyFromLocal -f /usr/hdp/current/hive-client/conf/hive-site.xml /tmp/hive-site.xml
 hadoop fs -copyFromLocal -f /usr/hdp/current/hive-client/conf/hive-site.xml /tmp/oozie-hive-site.xml
 hadoop fs -copyFromLocal -f oozie/standalone_jars/* /user/oozie/share/lib
