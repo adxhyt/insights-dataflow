@@ -243,8 +243,8 @@ left join chrome.chrome_consolidated cc on v.vin = cc.vin
 left join  insights.adjusted_mmr ammr on v.vin = ammr.vin;
 
 insert into insights.inventory_report_cached_tmp select * from insights.inventory_report_cached_stg  
-where ( make='Nissan' and rpm_status='On Lease' and rpm_region_code=25 and rpm_branch <= 73 and rpm_branch >=50) or 
-      ( make='Infiniti' and rpm_status='On Lease' and rpm_region_code=29 and  rpm_branch <= 98 and rpm_branch >= 90)
+where ( make='Nissan' and rpm_region_code=25 and rpm_branch <= 73 and rpm_branch >=50) or 
+      ( make='Infiniti' and rpm_region_code=29 and  rpm_branch <= 98 and rpm_branch >= 90)
 ;
 
 SET spark.sql.shuffle.partitions=1;
