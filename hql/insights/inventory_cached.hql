@@ -1,5 +1,9 @@
 SET spark.sql.shuffle.partitions=36;
 
+drop table if exists rpm.aim_vehicles_dedup;
+create table if not exists rpm.aim_vehicles_dedup as select *
+from
+(select  *, row_number() over (partition by  vehicle_id order by id  desc ) as group_rank from rpm.aim_vehicles_stg ) t  where group_rank=1;
 
 
 drop table if exists  insights.inventory_report_cached_stg;
@@ -230,7 +234,7 @@ ammr.mmr as adjusted_mmr,
 l.residual_amount as  residual_amount,
 cc.style_id
 FROM rpm.vehicles_stg V 
-left join rpm.aim_vehicles_stg AV on V.id=AV.vehicle_id 
+left join rpm.aim_vehicles_dedup AV on V.id=AV.vehicle_id 
 left join rpm.dealers_cleaned DC on CAST(V.dealer_number as INT)=DC.nna_dealer_number
 left join rpm.dealerships_stg D on D.nna_dealer_number=V.dealer_number
 left join rpm.leases_stg l  on l.vehicle_id = v.id
