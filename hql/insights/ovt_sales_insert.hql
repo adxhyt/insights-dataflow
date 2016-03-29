@@ -285,7 +285,7 @@ cust.bus_subtype_desc as ovt_customer_type
 from 
  ovt.man_ovt_fact_registration_dedup ovt_reg  
  join ovt.man_ovt_fact_registration_ext_dedup ext on ovt_reg.reg_key=ext.reg_key  and ovt_reg.sold_ts is not null and year(ovt_reg.sold_ts) > 2013 and ovt_reg.reg_dt_key=ext.reg_dt_key  
- join ovt.man_ovt_dim_make_model_trim ovt_make_model on ovt_reg.make_model_trim_key = ovt_make_model.make_model_trim_key 
+ join ovt.man_ovt_dim_make_model_trim_dedup ovt_make_model on ovt_reg.make_model_trim_key = ovt_make_model.make_model_trim_key 
 join ovt.ovt_seller_customer_reg osc on osc.reg_key = ovt_reg.reg_key
 join ovt.make_model_metrics om on om.reg_key = ovt_reg.reg_key
 left join chrome.chrome_consolidated cc on ovt_reg.vin = cc.vin

@@ -7,7 +7,7 @@ create table insights.sales_report_cached_stg like insights.sales_report_cached_
 
 INSERT INTO  TABLE insights.sales_report_cached_stg select 
 coalesce(CC.division, vdmv.vb_make, case when v.make='null' then NULL else v.make end, mmr.mmr_make) as make,
-coalesce(CC.CC.division, vdmv.vb_make,  case when v.make='null' then NULL else v.make end, mmr.mmr_make) as makeref,
+coalesce(CC.division, vdmv.vb_make,  case when v.make='null' then NULL else v.make end, mmr.mmr_make) as makeref,
  'n/a' as registration,
  'n/a' as chassis,
 v.trim_level as derivative,

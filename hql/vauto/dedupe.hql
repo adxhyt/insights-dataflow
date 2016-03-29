@@ -4,8 +4,9 @@ set mapreduce.task.timeout=1800000;
 set mapred.task.timeout= 1800000;
 set mapred.max.split.size=80000000;
 set mapreduce.input.fileinputformat.split.maxsize=80000000;
+set hive.exec.counters.pull.interval =500;
 set mapred.reduce.slowstart.completed.maps=1;
-set mapred.reduce.tasks=32;
+set mapred.reduce.tasks=128;
 use vauto;
  SET spark.sql.thriftserver.scheduler.pool=background;
 
