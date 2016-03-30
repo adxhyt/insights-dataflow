@@ -4,19 +4,14 @@
 -- Hovhannes Tumanyan (hovhannes@nus.la)
 -- 
 -- Below is a sample excerpt from the Experian data file
--- "TitleState"|"ReportingPeriod"|"DMA"|"VehicleYear"|"VehicleMake"|"VehicleModel"|"VehicleSegment"|"LeaseTerm"|"LeaseMaturityDate"|"TotalMatchedCount"|"TotalEstimatedMarketCount"
--- "AK"|"201201"|"ANCHORAGE, AK"|"2012"|"ACURA"|"TL"|"UPSCALE - NEAR LUXURY"|"36"|"Jan2015"|"1"|"1"
--- "AK"|"201201"|"ANCHORAGE, AK"|"2012"|"BMW"|"3-SERIES"|"UPSCALE - NEAR LUXURY"|"36"|"Jan2015"|"2"|"3"
--- "AK"|"201201"|"ANCHORAGE, AK"|"2012"|"HONDA"|"PILOT"|"CUV - MID RANGE"|"36"|"Jan2015"|"1"|"1"
 -- "TitleState"|"ReportingPeriod"|"GeoLevel"|"VehicleYear"|"VehicleMake"|"VehicleModel"|"VehicleSegment"|"LeaseMaturityDate"|"TotalEstimatedMarketCount"
 -- "AK"|"201201 - 201510"|"ANCHORAGE, AK"|"2011"|"BMW"|"3-SERIES"|"UPSCALE - NEAR LUXURY"|"Nov 2014"|"7"
 
 SET spark.default.parallelism=8;
-
-use experian;
+-- Make table for new updated data
 add jar hdfs://rmsus-hdn01:8020/user/oozie/share/lib/hive-serde.jar ;
-drop  table if exists `originations_stg`;
-CREATE EXTERNAL TABLE `originations_stg`(
+drop  table if exists `experian.originations_new`;
+CREATE EXTERNAL TABLE `experian.originations_new`(
 `state_abbr` string,
 `reporting_period` string,
 `experian_dma` string,
@@ -34,10 +29,82 @@ WITH SERDEPROPERTIES (
    "escapeChar"    = "\\"
 )  
 STORED AS TEXTFILE
-LOCATION '/data/database/experian/originations/*.dsv'
+LOCATION '/data/database/experian/originations/new'
 TBLPROPERTIES("skip.header.line.count"="1");
 
-cache table `originations_stg`;
+-- Make table for the old and the new
+drop  table if exists `experian.originations_stg`;
+CREATE TABLE `experian.originations_stg`(
+`state_abbr` string,
+`reporting_period` string,
+`experian_dma` string,
+`modelyear` string,
+`make` string,
+`model` string,
+`segment` string,
+`lease_maturity_date` string ,
+`estimated_market_cnt` int
+);
+
+-- Update the old data with new estimated_market_cnt
+insert into experian.originations_stg
+select o_old.state_abbr,
+o_old.reporting_period,
+o_old.experian_dma,
+o_old.modelyear,
+o_old.make,
+o_old.model,
+o_old.segment,
+o_old.lease_maturity_date,
+o_new.estimated_market_cnt from experian.originations_old o_old
+left join experian.originations_new o_new on
+o_old.state_abbr=o_new.state_abbr and
+o_old.experian_dma=o_new.experian_dma and
+o_old.modelyear=o_new.modelyear and
+o_old.make=o_new.make and
+o_old.model=o_new.model and
+o_old.segment=o_new.segment and
+o_old.lease_maturity_date=o_new.lease_maturity_date;
+
+-- Insert new rows from the new data
+insert into experian.originations_stg
+select o_new.state_abbr,
+o_new.reporting_period,
+o_new.experian_dma,
+o_new.modelyear,
+o_new.make,
+o_new.model,
+o_new.segment,
+o_new.lease_maturity_date,
+o_new.estimated_market_cnt 
+from experian.originations_new o_new 
+left join experian.originations_old o_old on
+o_old.state_abbr=o_new.state_abbr and
+o_old.experian_dma=o_new.experian_dma and
+o_old.modelyear=o_new.modelyear and
+o_old.make=o_new.make and
+o_old.model=o_new.model and
+o_old.segment=o_new.segment and
+o_old.lease_maturity_date=o_new.lease_maturity_date
+where o_old.state_abbr is null;
+
+cache table `experian.originations_stg`;
+
+-- Store the new table for the next months update
+drop  table if exists `experian.originations_old`;
+CREATE TABLE `experian.originations_old`(
+`state_abbr` string,
+`reporting_period` string,
+`experian_dma` string,
+`modelyear` string,
+`make` string,
+`model` string,
+`segment` string,
+`lease_maturity_date` string,
+`estimated_market_cnt` int
+)ROW FORMAT DELIMITED FIELDS TERMINATED BY ','  lines terminated by '\n' STORED AS TEXTFILE LOCATION '/data/database/experian/originations/old';
+INSERT INTO TABLE experian.originations_old
+SELECT * from experian.originations_stg;
 
 --
 -- OpenCSV serde produces text columns irrespective of the table specification.
