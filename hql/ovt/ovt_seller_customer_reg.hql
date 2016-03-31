@@ -19,7 +19,7 @@ from
 left join  ovt.man_ovt_dim_customer_dedup buyer_cust on ovt_reg.buyer_cust_key = buyer_cust.cust_key and buyer_cust.cust_key >= 0
 left join ovt.man_ovt_dim_customer_dedup seller_cust on ovt_reg.seller_cust_key = seller_cust.cust_key and seller_cust.cust_key >=0;
 
-create table if not exists ovt.ovt_seller_customer_reg
+create table if not exists ovt.ovt_seller_customer_reg_dedup
 as
 select *
 from

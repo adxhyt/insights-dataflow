@@ -57,3 +57,7 @@ metrics.model_year = ovt_make_model.model_year and
 metrics.auction_key = ovt_make_model.auction_key and 
 metrics.reg_year_month = ovt_make_model.reg_year_month;
  
+drop table if exists ovt.make_model_metrics_dedup;
+create table if not exists ovt.make_model_metrics_dedup  as select *
+from
+(select  *, row_number() over (partition by reg_key ) as group_rank from ovt.make_model_metrics ) t  where group_rank=1;

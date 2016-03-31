@@ -1,6 +1,8 @@
 use insights;
-set  spark.sql.shuffle.partitions=200;
+set  spark.sql.shuffle.partitions=600;
+set spark.network.timeout=99999s;
 
+set spark.shuffle.blockTransferService=nio;
 drop table if exists dso_dates_tmp;
 create table if not exists  dso_dates_tmp as select * from(
 select distinct to_date(from_unixtime(market_created)) as dt from retail_market_cached union
@@ -40,7 +42,7 @@ DD.dt,
 count(distinct RM.vin) as count from
 dso_dates_tmp DD join  retail_market_cached RM
 on
-  RM.market_created <= unix_timestamp(DD.dt, 'yyyy-MM-dd') and unix_timestamp(DD.dt, 'yyyy-MM-dd') <= RM.market_last_seen
+  RM.market_created <= unix_timestamp(DD.dt, 'yyyy-MM-dd') and unix_timestamp(DD.dt, 'yyyy-MM-dd') <= RM.market_last_seen 
 group by  
 veh_segment, 
 is_certified,
