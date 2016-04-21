@@ -2,7 +2,11 @@ use psa_shark;
 drop table if exists vehicle_dimension_bands;
 create table vehicle_dimension_bands as 
 select 
-     VI.vehicleid,
+     vehicleid,
+     vehicleageindays,
+     mileage,
+     stockage,     
+     TotalDamagesNetPrice,
      CASE WHEN vehicleageindays/7 >= 0 AND vehicleageindays/7 < 3 THEN 'under 3'
              WHEN vehicleageindays/7 >= 3 AND vehicleageindays/7 < 8 THEN '3 - 8'
              WHEN vehicleageindays/7 >= 8 AND vehicleageindays/7 < 14 THEN '9 - 14'
@@ -106,4 +110,15 @@ select
             WHEN VI.mileage >=100000 AND VI.mileage <150000 THEN 7
             WHEN VI.mileage >=150000 AND VI.mileage <999999 THEN 8
 end mileageBandId
-     from psa.vehicleinformation_stg VI;
+     from 
+	(select VI.vehicleId, 
+                CASE WHEN COALESCE(VI.IsUpstream,0) = 1 THEN CASE WHEN DATEDIFF(VAA.StockDate, from_unixtime(unix_timestamp())) > 0 THEN DATEDIFF( VAA.StockDate, from_unixtime(unix_timestamp())) ELSE 0 END
+		ELSE DATEDIFF(VAA.StockDate, from_unixtime(unix_timestamp())) END AS StockAge,
+                VAA.TotalDamagesNetPrice,
+                VH.Mileage 
+	from 
+		psa.VehicleInstance_stg 
+                LEFT JOIN psa.VehicleHeader_stg VH.ID = VI.VehicleID   
+                LEFT JOIN psa.VehicleAdditionalAttributes_stg VAA ON VAA.VehicleINstanceID = VI.ID 
+
+ ) t;
