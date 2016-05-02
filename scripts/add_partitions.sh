@@ -92,13 +92,16 @@ echo "Adding partitions for $QUALIFIED_TABLE_NAME from $TABLE_LOCATION"
 # The last AWK piece parses the partition sructure and generates ALTER TABLE statements
 PART_FILES=`$HADOOP_CMD fs -ls -R $TABLE_LOCATION/ | grep -v copy | awk '{ if ($2 != "-") print $8 }' | sed -r "s|.*$TABLE_LOCATION/(.*)/[0-9_]+$|\1|g" | tr '/' ','| sort | uniq` 
 
-
 PART_CNT=`echo "$PART_FILES" | wc -l`
 
 # Replace forward slashes with commmas and include the result in ALTER TABLE statement - yields a working ALTER script
 # that works with arbitrary number of partitions
 ALTER_SCRIPT=`echo "$PART_FILES" | tr '/' ',' | awk "{ loc=\\$1;gsub(/,/, \"/\", loc);  printf \"ALTER TABLE $QUALIFIED_TABLE_NAME ADD IF NOT EXISTS PARTITION (%s) LOCATION '$TABLE_LOCATION/%s/';\\n\", \\$1, loc }"`
 
-$CLIENT_CMD_WITH_OPTS -e "$ALTER_SCRIPT" 2>/dev/null
+echo $ALTER_SCRIPT > /tmp/alter_script.txt
+
+#$CLIENT_CMD_WITH_OPTS -e "$ALTER_SCRIPT" #2>/dev/null
+$CLIENT_CMD_WITH_OPTS -f /tmp/alter_script.txt
+rm /tmp/alter_script.txt 
 
 echo "Added $PART_CNT partitions."
