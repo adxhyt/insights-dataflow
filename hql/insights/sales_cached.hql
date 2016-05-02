@@ -316,7 +316,8 @@ NULL,
  NULL as ovt_body_style,
  NULL as ovt_engine,
  NULL as ovt_auction_lights,
- NULL as ovt_customer_type
+ NULL as ovt_customer_type,
+NULL as ovt_uniq_reg_id
 from  rpm.purchases_stg P 
 join rpm.vehicles_stg V on P.vehicle_id = V.id
 left join rpm.leases_stg L on V.id=L.vehicle_id

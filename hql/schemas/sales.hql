@@ -250,7 +250,8 @@ CREATE  TABLE `sales_report_cached_tmp`(
 `ovt_body_style` string,
 `ovt_engine` string,
 `ovt_auction_lights` string,
-`ovt_customer_type` string
+`ovt_customer_type` string,
+`ovt_uniq_reg_id` string
 )
 stored as parquet;
  
