@@ -25,6 +25,14 @@
                 			<name>oozie.launcher.mapreduce.map.java.opts</name>
                 			<value>-Xmx2057m</value>
             			</property>			
+				<property>
+					<name>mapreduce.map.memory.mb</name>
+            				<value>3072</value>
+          			</property>
+            			<property>
+                			<name>mapreduce.map.java.opts</name>
+                			<value>-Xmx2057m</value>
+            			</property>			
 			</configuration>
 				<arg>import</arg>
 				<arg>--connect</arg>
