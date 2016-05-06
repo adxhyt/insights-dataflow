@@ -78,7 +78,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS man_ovt_fact_inventory(
 `chckin_to_final_cr_days` int,
 `redeemed_ts` timestamp,
 `redeemed_dt_key` int,
-`ingestion_timestamp` timestamp,
+`ingestion_timestamp` timestamp
 )
 COMMENT 'This table is imported from Manheim Oracle table fact_inventory '
 PARTITIONED BY (
