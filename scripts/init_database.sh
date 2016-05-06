@@ -60,6 +60,7 @@ hadoop fs -mkdir -p /data/database/
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_veh_att_list2 -l /data/database/manheim/man_ovt_raw/man_ovt_dim_veh_att_list2
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_veh_att_list -l /data/database/manheim/man_ovt_raw/man_ovt_dim_veh_att_list
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_registration -l /data/database/manheim/man_ovt_raw/man_ovt_fact_registration
+./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_inventory -l /data/database/manheim/man_ovt_raw/man_ovt_fact_inventory
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_registration_ext -l /data/database/manheim/man_ovt_raw/man_ovt_fact_registration_ext
 ./scripts/add_partitions.sh -h $NAMENODE -d at  -t at_nz_inventory_daily_snp_ext  -l /data/database/at/nz_inv_dly_detail_snapshot
 
