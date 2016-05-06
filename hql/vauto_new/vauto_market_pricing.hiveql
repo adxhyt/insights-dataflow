@@ -1,0 +1,28 @@
+use vauto_new;
+DROP TABLE IF EXISTS vauto_market_pricing;
+CREATE EXTERNAL TABLE IF NOT EXISTS vauto_market_pricing
+(
+dma                             STRING,
+model_year                      INT,
+make                            STRING,
+model                           STRING,
+series                          STRING,
+drive_train_type                STRING,
+body_cab_style                  STRING,
+engine_cylinder_count           INT,
+engine_displacement             FLOAT,
+transmission_type               STRING,
+count                           INT,
+avg_odometer_adjustment         INT,
+avg_list_price                  INT
+)
+COMMENT 'This table is for vAuto data source Market Pricing daily files'
+PARTITIONED BY (
+  `theyear` smallint,
+  `themonth` smallint,
+  `theday` smallint
+)
+STORED AS PARQUET 
+LOCATION  '/data/database/vauto/vauto_market_pricing_new/'
+;
+

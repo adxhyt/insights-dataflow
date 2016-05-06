@@ -1,0 +1,49 @@
+use vauto_new;
+DROP TABLE IF EXISTS vauto_recent_market_data;
+CREATE EXTERNAL TABLE IF NOT EXISTS vauto_recent_market_data
+(
+vin                             STRING,
+postal_code                     INT,
+stock_number                    STRING,
+model_year                      INT,
+make                            STRING,
+model                           STRING,
+series                          STRING,
+series_detail                   STRING,
+odometer                        INT,
+new_used                        STRING,
+body_description                STRING,
+body_type                       STRING,
+body_door_count                 INT,
+body_cab_style                  STRING,
+body_bed_style                  STRING,
+body_roof_style                 STRING,
+engine_description              STRING,
+engine_cylinder_count           INT,
+engine_displacement             FLOAT,
+engine_fuel_type                STRING,
+transmission_description        STRING,
+transmission_type               STRING,
+transmission_gear_count         INT,
+drive_train_type                STRING,
+exterior_color                  STRING,
+exterior_base_color             STRING,
+interior_description            STRING,
+interior_color                  STRING,
+interior_material               STRING,
+categorized_equipment_ids       STRING,
+days_ininventory                INT,
+veh_segment                     STRING,
+veh_type                        STRING,
+created                         STRING,
+last_seen                       STRING
+)
+COMMENT 'This table is for vAuto data source Recent Market Data daily files'
+
+PARTITIONED BY (
+  `theyear` smallint,
+  `themonth` smallint,
+  `theday` smallint)
+STORED AS PARQUET
+LOCATION  '/data/database/vauto/vauto_recent_market_data_new/'
+;
