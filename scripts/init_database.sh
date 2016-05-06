@@ -10,6 +10,7 @@ hadoop fs -mkdir -p /data/database/
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database psa;';
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database manheim;';
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database vauto;';
+/usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database vauto_new;';
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database experian;';
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database at;';
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database ovt;';
@@ -24,6 +25,9 @@ hadoop fs -mkdir -p /data/database/
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto/vauto_market_pricing.hiveql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto/vauto_recent_market_data.hiveql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto/vauto_sold_market_vehicle.hiveql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto_new/vauto_market_pricing.hiveql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto_new/vauto_recent_market_data.hiveql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/vauto_new/vauto_sold_market_vehicle.hiveql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/experian/originations.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/at/geo.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/at/at_nz_inventory_daily_snp_ext.hql
@@ -46,6 +50,9 @@ hadoop fs -mkdir -p /data/database/
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_recent_market_data -l /data/database/vauto/vauto_market_pricing
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_market_pricing -l /data/database/vauto/vauto_recent_market_data
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_sold_market_vehicle -l /data/database/vauto/vauto_sold_market_vehicle
+./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_recent_market_data -l /data/database/vauto/vauto_market_pricing_new
+./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_market_pricing -l /data/database/vauto/vauto_recent_market_data_new
+./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_sold_market_vehicle -l /data/database/vauto/vauto_sold_market_vehicle_new
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_aution -l /data/database/manheim/man_ovt_raw/man_ovt_dim_auction
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_customer -l /data/database/manheim/man_ovt_raw/man_ovt_dim_customer
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_flndr -l /data/database/manheim/man_ovt_raw/man_ovt_dim_flndr
