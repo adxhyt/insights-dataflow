@@ -89,7 +89,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 ESCAPED BY '\\'
 STORED AS PARQUET
-LOCATION  '/data/database/manheim/man_ovt_raw/man_ovt_fact_registration';
+LOCATION  '/data/database/manheim/man_ovt_raw/man_ovt_fact_inventory';
 
 
 
