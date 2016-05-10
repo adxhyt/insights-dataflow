@@ -1,0 +1,49 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" xmlns:sla="uri:oozie:sla:0.2" name="sqoop-wf">
+    <start to="filter-procedure"/>
+	<action name="filter-procedure">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/3rd_party/polk_filtered.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="endMain"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="failEmail">
+		<email xmlns="uri:oozie:email-action:0.1">
+			<to>${alertEmail}</to>
+			<subject>oozie job failure</subject>
+			<body>The workflow ${wf:id()} name ${wf:name()} path ${wf:appPath()} had issues and was killed.  The error message is: ${wf:errorMessage(wf:lastErrorNode())}</body>
+		</email>
+		<ok to="fail" />
+		<error to="fail" />
+	</action>
+	<kill name="fail">
+		<message>Sqoop failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+	<end name="endMain"/>
+	<sla:info>
+		<sla:nominal-time>${nominal_time}</sla:nominal-time>
+		<sla:should-start>${10 * MINUTES}</sla:should-start>
+		<sla:should-end>${30 * MINUTES}</sla:should-end>
+		<sla:max-duration>${30 * MINUTES}</sla:max-duration>
+		<sla:alert-events>duration_miss</sla:alert-events>
+		<sla:alert-contact>${alertEmail}</sla:alert-contact>
+	</sla:info>
+</workflow-app>
