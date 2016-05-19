@@ -66,7 +66,6 @@ function extract_concat_zip(){
 
 function xml_to_csv(){
   file_source=$1
-  extc_dst=$2
 
   $PENTAHO_CMD -level=Minimal -xml_input_dir=$file_source
 }
@@ -87,7 +86,7 @@ do
     xml_to_csv "$j"
     for k in "$SRC_LOCATION"*.csv
     do
-      $HADOOP_CMD dfs -put "$k" "$FLAT_XML_PATH"
+      $HADOOP_CMD fs -put "$k" "$FLAT_XML_PATH"
       rm "$k"
     done
     rm "$j"
