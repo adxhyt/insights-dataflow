@@ -18,6 +18,8 @@ CLIENT_PORT=$HIVE_CLIENT_PORT
 FLAT_XML_PATH="/data/database/ais"
 FLAT_XML_FILE="$FLAT_XML_PATH/ais.xml"
 
+PENTAHO_CMD=/usr/data-integration/kitchen.sh
+
 while getopts "sh:l:" opt; do
   case $opt in
     s)
@@ -62,6 +64,12 @@ function extract_concat_zip(){
   $UNZIP_CMD -p -a "$extc_src" | $HADOOP_CMD fs -appendToFile - "$extc_dst"
 }
 
+function xml_to_csv(){
+  file_source=$1
+  extc_dst=$2
+
+  $PENTAHO_CMD -level=Minimal -xml_input_dir=$file_source
+}
 
 $HADOOP_CMD fs -rm -skipTrash "$FLAT_XML_FILE"
 
@@ -70,3 +78,20 @@ for i in "$SRC_LOCATION"*.zip
 do
   extract_concat_zip "$i" "$FLAT_XML_FILE"
 done
+
+for i in "$SRC_LOCATION"*.zip
+do
+  $UNZIP_CMD "$i"
+  for j in "$SRC_LOCATION"*.xml
+  do
+    xml_to_csv "$j"
+    for k in "$SRC_LOCATION"*.csv
+    do
+      $HADOOP_CMD dfs -put "$k" "$FLAT_XML_PATH"
+      rm "$k"
+    done
+    rm "$j"
+  done
+done
+
+
