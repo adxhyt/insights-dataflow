@@ -47,8 +47,8 @@ hadoop fs -mkdir -p /data/database/
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/chrome/chrome_subdivision_definition.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/chrome/chrome_vehicle_description.hql
 
-./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_recent_market_data -l /data/database/vauto/vauto_market_pricing
-./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_market_pricing -l /data/database/vauto/vauto_recent_market_data
+./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_recent_market_data -l /data/database/vauto/vauto_recent_market_data
+./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_market_pricing -l /data/database/vauto/vauto_market_pricing
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto -t vauto_sold_market_vehicle -l /data/database/vauto/vauto_sold_market_vehicle
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_recent_market_data -l /data/database/vauto/vauto_market_pricing_new
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_market_pricing -l /data/database/vauto/vauto_recent_market_data_new
