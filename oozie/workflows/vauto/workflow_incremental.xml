@@ -160,7 +160,107 @@
 		<ok to="joining"/>
 		<error to="joining"/>
 	</action>
-	<join name="joining" to="endMain"/>
+	<join name="joining" to="retail-schema"/>
+	<action name="retail-schema">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/schemas/retail_market.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="retail_market_procedure"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="retail-market-procedure">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/insights/retail_market_insert.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="retail-dso-procedure"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="retail-dso-procedure">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/insights/retail_market_dso.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="cache_vauto"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="cache_vauto">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${sparkUrl}</jdbc-url>
+			<script>/user/oozie/share/hql/insights/cache_vauto.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="endMain"/>
+		<error to="failEmail"/>
+	</action>
 	<action name="failEmail">
 		<email xmlns="uri:oozie:email-action:0.1">
 			<to>${alertEmail}</to>
