@@ -1,0 +1,1136 @@
+{
+  "type": "record",
+  "name": "dim_customer",
+  "namespace": "com.coxauto.eds.avro",
+  "fields": [
+    {
+      "name": "cust_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER | PRIMARY KEY"
+    },
+    {
+      "name": "cust_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_cust_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_type_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "legacy_cust_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "bus_type_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "bus_type_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "bus_subtype_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "bus_subtype_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_legal_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_univ_credit_limit_amt",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cust_activity_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_par_cust_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_par_cust_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_par_cust_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_sls_rep_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_sls_rep_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_desk_rep_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_desk_rep_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_ter_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_mkt_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_rgn_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_rep_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_sls_rep_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_desk_rep_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_desk_rep_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_ter_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_mkt_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_rgn_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "row_is_current",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "row_start_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "row_end_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "row_change_reason",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "dw_created_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "dw_updated_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "insert_batch_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "update_batch_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_par_cust_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_par_cust_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_par_cust_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_cust_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "consolidation_ind",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_comm_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_comm_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_megaslr_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_megaslr_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_megamol_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_megamol_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_comm_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_comm_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_megaslr_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_megaslr_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_megamol_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_megamol_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_comm_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_megaslr_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_megamol_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_comm_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_megaslr_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_megamol_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_addr_line_1",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_addr_line_2",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_city",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_country_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_postal_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_province",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "latitude",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "longitude",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "phone",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "fax",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mobile",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "email_addr",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "out_business_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "out_business_flg",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "fsm_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "gsm_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mvp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "rep_uid",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "consign_hierarchy_type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "tra_mkt_segment",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "franchise_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "dealer_hierarchy_alias",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_rep_title",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_rep_title",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "no_solicit_email_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "no_solicit_fax_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "assignment",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_addr_line_1",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_addr_line_2",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_city",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_country_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_postal_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_province",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "phys_state_abbr",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mail_state_abbr",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "franchise_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "language_pref",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "t1_checksum",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "t2_checksum",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "out_of_bus_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "out_of_bus_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "ko_book_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_market_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_territory_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cust_region_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "addr_line_1",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "addr_line_2",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "city",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "country_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "postal_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "province",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_dlr_grp_type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_dlr_grp_type_rep",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_dlr_grp_type_rep_email",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_dlr_grp_type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_dlr_grp_type_rep",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_dlr_grp_type_rep_email",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "franchise_cd_all",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "grp_cd_all",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "init_reg_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "comm_owner_id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "flndr_cd_primary",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "inst_type_all",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "transport_opt_in_flg",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "acct_uid_primary",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_mgr_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_mgr_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_gen_mgr_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_gen_mgr_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_mkt_vp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_sls_mkt_vp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "opted_in_with_1_dispatch_flg",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "myaccount_status_flg",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cur_sls_rep_guid",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_sls_rep_email",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "no_solicit_phone_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "no_solicit_paddr_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "sls_mnl_assn_ind",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "sls_mnl_assn_type",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "sub_mkt_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "ingest_date",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: generated"
+    }
+  ],
+  "doc": "A basic avro schema for storing dim_customer data"
+}

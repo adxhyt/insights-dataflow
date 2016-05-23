@@ -3,6 +3,8 @@
 NAMENODE=$1
 
 hadoop fs -mkdir -p /data/database/
+hadoop fs -mkdir -p /hql/ovt/avro/
+hadoop fs -copyFromLocal -f hql/ovt/avro/* /user/oozie/share/hql/avro/
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database insights;'
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database rpm;'
 /usr/hdp/current/spark-client/bin/beeline -u jdbc:hive2://$NAMENODE:13001/ -e 'create database vdm;';
@@ -31,11 +33,11 @@ hadoop fs -mkdir -p /data/database/
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/experian/originations.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/at/geo.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/at/at_nz_inventory_daily_snp_ext.hql
-/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_dim_customer.hql
-/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_dim_flndr.hql
-/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_dim_make_model_trim.hql
-/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_dim_veh_att_list2.hql
-/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_dim_veh_att_list.hql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/  --hiveconf namenode=$NAMENODE -f  hql/ovt/man_ovt_dim_customer.hql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/  --hiveconf namenode=$NAMENODE -f  hql/ovt/man_ovt_dim_flndr.hql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/  --hiveconf namenode=$NAMENODE -f  hql/ovt/man_ovt_dim_make_model_trim.hql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/  --hiveconf namenode=$NAMENODE -f  hql/ovt/man_ovt_dim_veh_att_list2.hql
+/usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/  --hiveconf namenode=$NAMENODE -f  hql/ovt/man_ovt_dim_veh_att_list.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_fact_registration_ext.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/ovt/man_ovt_fact_registration.hql
 /usr/hdp/current/spark-client/bin/beeline -u  jdbc:hive2://$NAMENODE:13001/ -f hql/chrome/chrome_body_type.hql
@@ -53,12 +55,6 @@ hadoop fs -mkdir -p /data/database/
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_recent_market_data -l /data/database/vauto/vauto_market_pricing_new
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_market_pricing -l /data/database/vauto/vauto_recent_market_data_new
 ./scripts/add_partitions.sh -h $NAMENODE -d vauto_new -t vauto_sold_market_vehicle -l /data/database/vauto/vauto_sold_market_vehicle_new
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_aution -l /data/database/manheim/man_ovt_raw/man_ovt_dim_auction
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_customer -l /data/database/manheim/man_ovt_raw/man_ovt_dim_customer
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_flndr -l /data/database/manheim/man_ovt_raw/man_ovt_dim_flndr
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_make_model_trim -l /data/database/manheim/man_ovt_raw/man_ovt_dim_make_model_trim
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_veh_att_list2 -l /data/database/manheim/man_ovt_raw/man_ovt_dim_veh_att_list2
-./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_dim_veh_att_list -l /data/database/manheim/man_ovt_raw/man_ovt_dim_veh_att_list
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_registration -l /data/database/manheim/man_ovt_raw/man_ovt_fact_registration
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_inventory -l /data/database/manheim/man_ovt_raw/man_ovt_fact_inventory
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_registration_ext -l /data/database/manheim/man_ovt_raw/man_ovt_fact_registration_ext
