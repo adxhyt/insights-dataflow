@@ -1,0 +1,40 @@
+{
+  "type": "record",
+  "name": "dim_source",
+  "namespace": "com.coxauto.eds.avro",
+  "fields": [
+    {
+      "name": "source_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER | PRIMARY KEY"
+    },
+    {
+      "name": "source_code",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "source_name",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "ingest_date",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: generated"
+    }
+  ],
+  "doc": "A basic avro schema for storing dim_source data"
+}

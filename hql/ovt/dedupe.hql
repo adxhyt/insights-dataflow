@@ -27,22 +27,3 @@ row_number() over ( partition by reg_key  order by  DW_UPDATED_ON  desc ) as gro
  from ovt.man_ovt_fact_registration_ext where reg_key is not null
 ) t where t.group_rank=1;
 
-drop table if exists ovt.man_ovt_dim_auction_dedup;
-create table if not exists ovt.man_ovt_dim_auction_dedup as select *
-from
-(select  *, row_number() over (partition by auction_key order by  DW_UPDATED_ON  desc ) group_rank from ovt.man_ovt_dim_auction where auction_key is not null  ) t  where group_rank=1;
-
-drop table if exists ovt.man_ovt_dim_flndr_dedup;
-create table if not exists ovt.man_ovt_dim_flndr_dedup as select *
-from
-(select  *, row_number() over (partition by flndr_key) as group_rank from ovt.man_ovt_dim_flndr where flndr_key is not null  ) t  where group_rank=1;
-
-drop table if exists ovt.man_ovt_dim_make_model_trim_dedup;
-create table if not exists ovt.man_ovt_dim_make_model_trim_dedup as select *
-from
-(select  *, row_number() over (partition by make_model_trim_key order by  DW_UPDATED_ON  desc ) as group_rank from ovt.man_ovt_dim_make_model_trim  where make_model_trim_key  is not null  ) t  where group_rank=1;
-
-drop table if exists ovt.man_ovt_dim_customer_dedup;
-create table if not exists ovt.man_ovt_dim_customer_dedup as select *
-from
-(select  *, row_number() over (partition by cust_key order by  DW_UPDATED_ON  desc ) as group_rank from ovt.man_ovt_dim_customer  where cust_key  is not null  ) t  where group_rank=1;

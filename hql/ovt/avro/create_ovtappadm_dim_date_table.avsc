@@ -1,0 +1,312 @@
+{
+  "type": "record",
+  "name": "dim_date",
+  "namespace": "com.coxauto.eds.avro",
+  "fields": [
+    {
+      "name": "dt_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER | PRIMARY KEY"
+    },
+    {
+      "name": "full_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "dt_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "day_of_wk",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "day_nm_of_wk",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "short_day_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "day_of_mon",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "day_of_mon_lead_0",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "day_of_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "day_of_yr_lead_0",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "wkday_wkend",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "wk_of_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "mon_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "short_mon_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "mon_of_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "mon_of_yr_lead_0",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "is_last_day_of_mon_flg",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cal_qtr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cal_qtr_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cal_qtr_nm_of_yr",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cal_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cal_yr_mon",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cal_yr_mon_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "cal_yr_qtr",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "rpt_day_of_wk",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "rpt_wk",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "rpt_wk_of_yr_lead_0",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "rpt_wk_of_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "rpt_wk_of_yr_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "rpt_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "rpt_yr_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "rpt_day_of_yr",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "rpt_day_of_yr_lead_0",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "holiday_flg",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "etc_offset",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "dw_created_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "dw_updated_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "ingest_date",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: generated"
+    }
+  ],
+  "doc": "A basic avro schema for storing dim_date data"
+}
