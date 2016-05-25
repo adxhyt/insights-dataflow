@@ -1,5 +1,13 @@
 use insights;
-set  spark.sql.shuffle.partitions=600;
+set mapred.reduce.tasks = 10;
+set  hive.auto.convert.join=false;
+set mapred.tasktracker.expiry.interval=1800000;
+set mapreduce.task.timeout=1800000;
+set mapred.task.timeout= 1800000;
+set mapred.max.split.size=80000000;
+set mapreduce.input.fileinputformat.split.maxsize=80000000;
+set mapreduce.job.reduce.slowstart.completedmaps=1;
+set  spark.sql.shuffle.partitions=10;
 set spark.network.timeout=99999s;
 
 set spark.shuffle.blockTransferService=nio;
@@ -8,6 +16,8 @@ create table if not exists  dso_dates_tmp as select * from(
 select distinct to_date(from_unixtime(market_created)) as dt from retail_market_cached union
 select distinct to_date(from_unixtime(market_last_seen)) as dt from retail_market_cached union
 select distinct to_date(from_unixtime(sales_last_seen)) as dt from retail_market_cached) t;
+set  spark.sql.shuffle.partitions=600;
+set mapred.reduce.tasks = 600;
 
 drop  table if exists dso_sold_daily_tmp;
 create table if not exists dso_sold_daily_tmp as select 

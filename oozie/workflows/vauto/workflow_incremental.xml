@@ -27,9 +27,17 @@
 			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
 			<capture-output/>
 		</shell>
-		<ok to="vauto-hql-dedupe-recent"/>
+		<ok to="dedupe-recent-predicate"/>
 		<error to="joining"/>
 	</action>
+	<decision name='dedupe-recent-predicate'>
+		<switch>
+		  <case to='vauto-hql-dedupe-recent' >
+			${wf:actionData('vauto-add-new-partition-recent')['new_partitions'] ne ''}
+		  </case>
+		   <default to="joining"/>
+		</switch>
+	</decision>
 	<action name="vauto-hql-dedupe-recent">
 		<hive2 xmlns="uri:oozie:hive2-action:0.1">
 			<job-tracker>${jobTracker}</job-tracker>
@@ -105,9 +113,17 @@
 			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
 			<capture-output/>
 		</shell>
-		<ok to="vauto-hql-dedupe-sold"/>
+		<ok to="dedup-sold-predicate"/>
 		<error to="joining"/>
 	</action>
+	<decision name='dedup-sold-predicate'>
+		<switch>
+		  <case to='vauto-hql-dedupe-sold' >
+			${wf:actionData('vauto-add-new-partition-sold')['new_partitions'] ne ''}
+		  </case>
+		   <default to="joining"/>
+		</switch>
+	</decision>
 	<action name="vauto-hql-dedupe-sold">
 		<hive2 xmlns="uri:oozie:hive2-action:0.1">
 			<job-tracker>${jobTracker}</job-tracker>
@@ -160,7 +176,15 @@
 		<ok to="joining"/>
 		<error to="joining"/>
 	</action>
-	<join name="joining" to="retail-schema"/>
+	<join name="joining" to="retail-schema-predicate"/>
+	<decision name='retail-schema-predicate'>
+		<switch>
+		  <case to='retail-schema' >
+			${wf:actionData('vauto-add-new-partition-sold')['new_partitions'] ne '' or wf:actionData('vauto-add-new-partition-recent')['new_partitions'] ne ''}
+		  </case>
+		   <default to="endMain"/>
+		</switch>
+	</decision>
 	<action name="retail-schema">
 		<hive2 xmlns="uri:oozie:hive2-action:0.1">
 			<job-tracker>${jobTracker}</job-tracker>
@@ -183,7 +207,7 @@
 			<script>/user/oozie/share/hql/schemas/retail_market.hql</script>
 			<param>NameNode=${nameNode}</param>
 		</hive2>
-		<ok to="retail_market_procedure"/>
+		<ok to="retail-market-procedure"/>
 		<error to="failEmail"/>
 	</action>
 	<action name="retail-market-procedure">
