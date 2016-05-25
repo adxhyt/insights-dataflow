@@ -1,0 +1,192 @@
+{
+  "type": "record",
+  "name": "dim_buyer_owner_grp",
+  "namespace": "com.coxauto.eds.avro",
+  "fields": [
+    {
+      "name": "buyer_owner_grp_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER | PRIMARY KEY"
+    },
+    {
+      "name": "buyer_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "access_type_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "owner_grp_id",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "hist_owner_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_owner_grp_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "hist_owner_grp_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "cur_owner_grp_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "owner_grp_type_desc",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "auction_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "row_start_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "row_end_dt",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "row_is_current",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "dw_created_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "dw_updated_on",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: DATE"
+    },
+    {
+      "name": "insert_batch_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "update_batch_key",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "dealer_trade",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: NUMBER"
+    },
+    {
+      "name": "manheim_grp_cd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "bog_display_nm",
+      "type": [
+        "null",
+        "string"
+      ],
+      "doc": "Original Type: VARCHAR2"
+    },
+    {
+      "name": "ingest_date",
+      "type": [
+        "null",
+        "long"
+      ],
+      "doc": "Original Type: generated"
+    }
+  ],
+  "doc": "A basic avro schema for storing dim_buyer_owner_grp data"
+}
