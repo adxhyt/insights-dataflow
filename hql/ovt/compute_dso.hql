@@ -1,5 +1,7 @@
 use ovt;
 drop table ovt_make_model;
+set hive.exec.mode.local.auto=false;
+set mapred.reduce.slowstart.completed.maps=1;
 SET spark.sql.shuffle.partitions=128;
 create table if not exists  ovt_make_model as select 
 mmt.make_desc as make,

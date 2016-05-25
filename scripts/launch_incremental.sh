@@ -3,12 +3,12 @@
 db=$1 
 hive_port=13001
 
-
-NAMENODE_HOST='dev-na-lxhdn01.cloudapp.net'
-EDGENODE_HOST='dev-na-LXHDE01'
-SQL_SERVER_HOST='dev-na-LXHDE01'
-MYSQL_HOST='dev-na-LXHDE01'
-JDBC_URL='jdbc:mysql://dev-na-LXHDE01/rpm'
+ENV_PREFIX=`hostname| sed 's/\(.*\)-[A-Z0-9]*/\1/'`
+NAMENODE_HOST=$ENV_PREFIX'lxhdn01.cloudapp.net'
+EDGENODE_HOST=$ENV_PREFIX'-LXHDE01'
+SQL_SERVER_HOST=$ENV_PREFIX'-LXHDE01'
+MYSQL_HOST=$ENV_PREFIX'-LXHDE01'
+JDBC_URL='jdbc:mysql://${ENV_PREFIX}-LXHDE01/rpm'
 SQL_USER='insights'
 SQL_PASS='M@ins3a'
 

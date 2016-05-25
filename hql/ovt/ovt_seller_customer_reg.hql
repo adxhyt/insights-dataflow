@@ -1,7 +1,10 @@
 use ovt ;
 
 SET spark.sql.shuffle.partitions=128;
+set mapred.reduce.slowstart.completed.maps=1;
+set hive.exec.counters.pull.interval =500;
 drop table if exists  ovt_seller_customer_reg_tmp;
+set hive.exec.mode.local.auto=false;
 
 create table ovt_seller_customer_reg_tmp as select 
 ovt_reg.reg_key as reg_key,

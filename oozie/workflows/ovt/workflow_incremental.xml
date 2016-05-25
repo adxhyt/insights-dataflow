@@ -1,0 +1,326 @@
+<workflow-app name="shell-wf" xmlns="uri:oozie:workflow:0.5">
+    <start to="forking"/>
+        <fork name="forking">
+                <path start="ovt-add-new-partition-fact"/>
+                <path start="ovt-add-new-partition-fact-ext"/>
+        </fork>
+	<action name="ovt-add-new-partition-fact">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>ovt</argument>
+			<argument>-t</argument>
+			<argument>man_ovt_fact_registration</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/manheim/man_ovt_raw/man_ovt_fact_registration</argument>
+			<argument>-n</argument>
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="dedupe-fact-predicate"/>
+		<error to="dedupe-fact-predicate"/>
+	</action>
+	<decision name='dedupe-fact-predicate'>
+		<switch>
+		  <case to='joining' >
+		  ${not empty wf:errorCode('ovt-add-new-partition-fact')}
+		  </case>
+		   <default to="ovt-hql-dedupe-fact"/>
+		</switch>
+	</decision>
+	<action name="ovt-hql-dedupe-fact">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/ovt/dedupe_incremental_fact.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="ovt-add-partition-fact"/>
+		<error to="joining"/>
+	</action>
+	<action name="ovt-add-partition-fact">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>ovt</argument>
+			<argument>-t</argument>
+			<argument>man_ovt_fact_registration</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/manheim/man_ovt_raw/man_ovt_fact_registration/</argument>
+			<argument>-p</argument>
+                        <argument>${wf:actionData('ovt-add-new-partition-fact')['new_partitions']}</argument> 
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="joining"/>
+		<error to="joining"/>
+	</action>
+	<action name="ovt-add-new-partition-fact-ext">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>ovt</argument>
+			<argument>-t</argument>
+			<argument>man_ovt_fact_registration_ext</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/manheim/man_ovt_raw/man_ovt_fact_registration_ext/</argument>
+			<argument>-n</argument>
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="dedup-ext-predicate"/>
+		<error to="joining"/>
+	</action>
+	<decision name='dedup-ext-predicate'>
+		<switch>
+		  <case to='joining' >
+		  ${not empty wf:errorCode('ovt-add-new-partition-fact-ext')}
+		  </case>
+		   <default to="ovt-hql-dedupe-fact-ext"/>
+		</switch>
+	</decision>
+	<action name="ovt-hql-dedupe-fact-ext">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/ovt/dedupe_incremental_fact_ext.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="ovt-add-partition-fact-ext"/>
+		<error to="joining"/>
+	</action>
+	<action name="ovt-add-partition-fact-ext">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>ovt</argument>
+			<argument>-t</argument>
+			<argument>man_ovt_fact_registration_ext</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/manheim/man_ovt_raw/man_ovt_fact_registration_ext/</argument>
+			<argument>-p</argument>
+                        <argument>${wf:actionData('ovt-add-new-partition-fact-ext')['new_partitions']}</argument> 
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="joining"/>
+		<error to="joining"/>
+	</action>
+	<join name="joining" to="has-updates-predicate"/>
+	<decision name='has-updates-predicate'>
+		<switch>
+		  <case to='endMain'>
+		  	  ${not empty wf:errorCode('ovt-add-new-partition-fact') and  not  empty wf:errorCode('ovt-add-new-partition-fact-ext')}
+		  </case>
+		  <default to='ovt-hql-procedure-seller-customer'/>
+		</switch>
+	</decision>
+	<action name="ovt-hql-procedure-seller-customer">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/ovt/ovt_seller_customer_reg.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="ovt-hql-dso"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="ovt-hql-dso">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/ovt/compute_dso.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="sales-schema"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="sales-schema">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/schemas/sales.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="ovt-sales-procedure"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="ovt-sales-procedure">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${hive2Url}</jdbc-url>
+			<script>/user/oozie/share/hql/insights/ovt_sales_insert.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="cache_ovt"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="cache_ovt">
+		<hive2 xmlns="uri:oozie:hive2-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+				<property>
+					<name>oozie.hive.defaults</name>
+					<value>/tmp/oozie-hive-site.xml</value>
+				</property>
+				<property>
+					<name>oozie.action.sharelib.for.hive2</name>
+					<value>hive-0.13</value>
+				</property>
+			</configuration>
+			<jdbc-url>${sparkUrl}</jdbc-url>
+			<script>/user/oozie/share/hql/insights/cache_ovt.hql</script>
+			<param>NameNode=${nameNode}</param>
+		</hive2>
+		<ok to="endMain"/>
+		<error to="failEmail"/>
+	</action>
+	<action name="failEmail">
+		<email xmlns="uri:oozie:email-action:0.1">
+			<to>${alertEmail}</to>
+			<subject>oozie job failure</subject>
+			<body>The workflow ${wf:id()} name ${wf:name()} path ${wf:appPath()} had issues and was killed.  The error message is: ${wf:errorMessage(wf:lastErrorNode())}</body>
+		</email>
+		<ok to="fail" />
+		<error to="fail"/>
+	</action>
+	<kill name="fail">
+		<message>Sqoop failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+	<end name="endMain"/>
+</workflow-app>
