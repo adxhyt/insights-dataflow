@@ -18,7 +18,7 @@
         </parameter>
         <parameter>
             <name>xml_input_dir</name>
-            <default_value>&#x2f;Users&#x2f;tylerchapman&#x2f;Desktop&#x2f;nusla&#x2f;ais_xml&#x2f;ais</default_value>
+            <default_value/>
             <description/>
         </parameter>
     </parameters>
@@ -132,12 +132,12 @@
       <yloc>176</yloc>
       </entry>
     <entry>
-      <name>Extract vehicleGroups</name>
+      <name>Extract vehicle_groups</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;vehicleGroups.ktr</filename>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;vehicle_groups.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -166,12 +166,12 @@
       <yloc>287</yloc>
       </entry>
     <entry>
-      <name>Extract postalCode</name>
+      <name>Extract postal_codes</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;postalCode.ktr</filename>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;postal_codes.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -221,7 +221,7 @@
     </hop>
     <hop>
       <from>START</from>
-      <to>Extract vehicleGroups</to>
+      <to>Extract vehicle_groups</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -230,7 +230,7 @@
     </hop>
     <hop>
       <from>START</from>
-      <to>Extract postalCode</to>
+      <to>Extract postal_codes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

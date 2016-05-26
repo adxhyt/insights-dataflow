@@ -6,5 +6,5 @@ CREATE EXTERNAL TABLE `postal_codes`(
 ) 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','  lines terminated by '\n' 
 STORED AS TEXTFILE 
-LOCATION '/data/database/ais/postal_codes/' 
+LOCATION '/data/database/ais/postalCode/' 
 tblproperties("skip.header.line.count"="1");

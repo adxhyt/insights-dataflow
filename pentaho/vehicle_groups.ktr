@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>VehicleGroups</name>
+    <name>vehicle_groups</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -106,7 +106,7 @@
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>Y</do_not_open_new_file_init>
-      <extention>vehicleGroups.csv</extention>
+      <extention>vehicle_groups.csv</extention>
       <append>N</append>
       <split>N</split>
       <haspartno>N</haspartno>
