@@ -1,6 +1,5 @@
-use ais;
-drop table if exists postal_codes;
-CREATE EXTERNAL TABLE `postal_codes`(
+drop table if exists ais.postal_codes;
+CREATE EXTERNAL TABLE `ais.postal_codes`(
 `codes` int,
 `RegionID` int
 ) 

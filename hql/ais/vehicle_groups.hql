@@ -1,6 +1,5 @@
-use ais;
-drop table if exists vehicle_groups;
-CREATE EXTERNAL TABLE `vehicle_groups`(
+drop table if exists ais.vehicle_groups;
+CREATE EXTERNAL TABLE `ais.vehicle_groups`(
 `AdjRateAprTerm` String,
 `AdjRateLeaseTerm` double,
 `CCR` int,

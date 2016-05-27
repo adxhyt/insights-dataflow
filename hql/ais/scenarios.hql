@@ -1,6 +1,5 @@
-use ais;
-drop table if exists scenarios;
-CREATE EXTERNAL TABLE `scenarios`(
+drop table if exists ais.scenarios;
+CREATE EXTERNAL TABLE `ais.scenarios`(
 `APR` String,
 `AdvPgmVehID` int,
 `Cash` string,

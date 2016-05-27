@@ -1,6 +1,5 @@
-use ais;
-drop table if exists programs;
-CREATE EXTERNAL TABLE `programs`(
+drop table if exists ais.programs;
+CREATE EXTERNAL TABLE `ais.programs`(
 `ProgramID` int,
 `ShortTitle` String,
 `Title` String
