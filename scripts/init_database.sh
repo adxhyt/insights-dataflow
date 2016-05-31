@@ -60,3 +60,5 @@ hadoop fs -copyFromLocal -f hql/ovt/avro/* /user/oozie/share/hql/avro/
 ./scripts/add_partitions.sh -h $NAMENODE -d ovt -t man_ovt_fact_registration_ext -l /data/database/manheim/man_ovt_raw/man_ovt_fact_registration_ext
 ./scripts/add_partitions.sh -h $NAMENODE -d at  -t at_nz_inventory_daily_snp_ext  -l /data/database/at/nz_inv_dly_detail_snapshot
 
+
+ ./scripts/add_partitions.sh -h $NAMENODE -d  mmr -t man_historic_mmr -l /data/database/mmr/man_historic_mmr/
