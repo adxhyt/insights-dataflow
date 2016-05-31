@@ -1,5 +1,30 @@
 <workflow-app name="shell-wf" xmlns="uri:oozie:workflow:0.5">
-    <start to="mmr-hql-procedure"/>
+    <start to="mmr-add-partition-historical"/>
+	<action name="mmr-add-partition-historical">
+		<shell xmlns="uri:oozie:shell-action:0.1">
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<configuration>
+				<property>
+					<name>mapred.job.queue.name</name>
+					<value>${queueName}</value>
+				</property>
+			</configuration>
+			<exec>${partitionScript}</exec>
+			<argument>-d</argument>
+			<argument>mmr</argument>
+			<argument>-t</argument>
+			<argument>man_historic_mmr</argument>
+			<argument>-h</argument>
+			<argument>${namenode_host}</argument>
+			<argument>-l</argument>
+			<argument>/data/database/mmr/man_historic_mmr/</argument>
+			<file>${partitionPath}${partitionScript}#${partitionScript}</file>
+			<capture-output/>
+		</shell>
+		<ok to="mmr-hql-procedure"/>
+		<error to="failEmail"/>
+	</action>
 	<action name="mmr-hql-procedure">
 		<hive xmlns="uri:oozie:hive-action:0.2">
 			<job-tracker>${jobTracker}</job-tracker>
